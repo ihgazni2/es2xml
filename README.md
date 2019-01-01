@@ -19,9 +19,18 @@
 __1. e2x.xml(ast)__  
 
         console.log(e2x.xml(ast)) 
-__2. __
+__2. search the AST using css selector__
 
-        var 
+        var cheerio =require('cheerio')
+        var code = e2x.xml(ast)
+        var $ = cheerio.load(code,{xmlMode:true})
+        $("[type=Identifier]").length
+        $("[type=Identifier]")[0].attribs
+        $("[type=Identifier]")[1].attribs
+        $("[type=Identifier]")[2].attribs
+        $("[type=BinaryExpression]")[0].attribs.operator
+        //according to estree spec , some special-chars-not-allowed-in-html exist, so need escape/unescape
+        unescape($("[type=BinaryExpression]")[0].attribs.operator)
 __3. __
 
         var 
@@ -87,11 +96,19 @@ _(thanks to)_
 ![](/Images/e2x.xml.0.PNG)
 ![](/Images/e2x.xml.1.PNG)
 
-
+        var cheerio =require('cheerio')
+        var code = e2x.xml(ast)
+        var $ = cheerio.load(code,{xmlMode:true})
+        $("[type=Identifier]").length
+        $("[type=Identifier]")[0].attribs
+        $("[type=Identifier]")[1].attribs
+        $("[type=Identifier]")[2].attribs
+        $("[type=BinaryExpression]")[0].attribs.operator
+        unescape($("[type=BinaryExpression]")[0].attribs.operator)
         
         
         
-![](/Images/.0.png)  
+![](/Images/cheerio.0.png)  
 
         
 
