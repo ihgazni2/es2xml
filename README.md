@@ -9,20 +9,44 @@
 ## Usage
 -------------------------------------------------------
 
-        var 
-__1. __  
-
-        var 
-__2. __
-
-        var 
-__3. __
-
-        var 
-__4. __  
-
+        var e2x = require("es2xml")
+        var acorn = require("acorn")
+        var code = `function isNewLine(code, ecma2019String) {
+          return code === 10 || code === 13 || !ecma2019String && (code === 0x2028 || code === 0x2029);
+        }`
+        var ast = acorn.parse(code)
         
-__5. __
+__1. e2x.xml(ast)__  
+
+        console.log(e2x.xml(ast)) 
+__2. search the AST using css selector__
+
+        var cheerio =require('cheerio')
+        var code = e2x.xml(ast)
+        var $ = cheerio.load(code,{xmlMode:true})
+        $("[type=Identifier]").length
+        $("[type=Identifier]")[0].attribs
+        $("[type=Identifier]")[1].attribs
+        $("[type=Identifier]")[2].attribs
+        $("[type=BinaryExpression]")[0].attribs.operator
+        //according to estree spec , some special-chars-not-allowed-in-html exist, so need escape/unescape
+        unescape($("[type=BinaryExpression]")[0].attribs.operator)
+        
+__3. flatten and traverse the AST__
+
+        //acorn-walk use sax-like-way to traverse the AST
+        //and too many recursive functions in it, its hard to read
+        //sometimes, its not convient for me to copy and resue the code
+        //so i use a matrix to store it,make everything F-L-A-T and C-L-E-A-R
+        //dfs is depth-first-search-path-record
+        //wfs is width-first-search-path-record
+        var mat = e2x.esmat(ast)
+        var pldfs = e2x.pldfs(mat)
+        var attrdfs = e2x.attrdfs(mat)
+        var locdfs = e2x.locdfs(mat)
+        var plwfs = e2x.plwfs(mat)
+        var locwfs = e2x.locwfs(mat)
+
 
         
 -------------------------------------------------------
@@ -70,32 +94,52 @@ _(thanks to)_
 
 ----------------------------------------------
 
-        var 
-        var 
-        var 
-        var 
+        var e2x = require("es2xml")
+        var acorn = require("acorn")
+        var code = `function isNewLine(code, ecma2019String) {
+          return code === 10 || code === 13 || !ecma2019String && (code === 0x2028 || code === 0x2029);
+        }`
+        var ast = acorn.parse(code)
        
 
-![](/Images/app1s1.0.png)
-![](/Images/app1s1.1.png)
-![](/Images/app1s1.2.png)
+![](/Images/e2x.xml.0.PNG)
+![](/Images/e2x.xml.1.PNG)
 
+        var cheerio =require('cheerio')
+        var code = e2x.xml(ast)
+        var $ = cheerio.load(code,{xmlMode:true})
+        $("[type=Identifier]").length
+        $("[type=Identifier]")[0].attribs
+        $("[type=Identifier]")[1].attribs
+        $("[type=Identifier]")[2].attribs
+        $("[type=BinaryExpression]")[0].attribs.operator
+        unescape($("[type=BinaryExpression]")[0].attribs.operator)
         
         
         
-![](/Images/search_and_get.0.png)  
+![](/Images/cheerio.0.png)  
 
+        var mat = e2x.esmat(ast)
+        var pldfs = e2x.pldfs(mat)
+
+![](/Images/pldfs.0.png) 
+
+        var attrdfs = e2x.attrdfs(mat)
         
+![](/Images/attrdfs.0.png)
 
-![](/Images/listStructure.0.png)
-
+        var locdfs = e2x.locdfs(mat)
         
+![](/Images/locdfs.0.png)
 
-![](/Images/listExifTags.0.png)
+        var plwfs = e2x.plwfs(mat)
 
-        
+![](/Images/plwfs.0.png)
 
-![](/Images/man_Orientation.0.png)
+        var locwfs = e2x.locwfs(mat)        
+
+![](/Images/locwfs.0.png)
+
 
 ----------------------------------------------
 
