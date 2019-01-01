@@ -1,6 +1,6 @@
 const gm = require('./descmat')
 const cmmn = require('./common')
-
+const elel = require('elist')
 
 function creatAttribStr(attribs) {
     if(attribs===undefined) {
@@ -87,11 +87,13 @@ function creatXMLstr(mat,returnRanges) {
     ranges.push([0,1])
     let prev = rdfs[0]
     let indentNum = 0
+    let rangeEnd
+    let curr
     for(let i=1;i<rdfs.length;i++){
-        let curr = rdfs[i]
+        curr = rdfs[i]
         let currAttrib = adfs[i]
         let rangeStart = lines.length
-        let rangeEnd = rangeStart
+        rangeEnd = rangeStart
         let tmp = handleClose(prev,curr,lines,indentNum,rangeEnd,indentWidth,indentChar)
         prev = tmp[0]
         curr = tmp[1]
