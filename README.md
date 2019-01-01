@@ -9,10 +9,16 @@
 ## Usage
 -------------------------------------------------------
 
-        var 
-__1. __  
+        var e2x = require("es2xml")
+        var acorn = require("acorn")
+        var code = `function isNewLine(code, ecma2019String) {
+          return code === 10 || code === 13 || !ecma2019String && (code === 0x2028 || code === 0x2029);
+        }`
+        var ast = acorn.parse(code)
+        
+__1. e2x.xml(ast)__  
 
-        var 
+        console.log(e2x.xml(ast)) 
 __2. __
 
         var 
@@ -70,32 +76,26 @@ _(thanks to)_
 
 ----------------------------------------------
 
-        var 
-        var 
-        var 
-        var 
+        var e2x = require("es2xml")
+        var acorn = require("acorn")
+        var code = `function isNewLine(code, ecma2019String) {
+          return code === 10 || code === 13 || !ecma2019String && (code === 0x2028 || code === 0x2029);
+        }`
+        var ast = acorn.parse(code)
        
 
-![](/Images/app1s1.0.png)
-![](/Images/app1s1.1.png)
-![](/Images/app1s1.2.png)
+![](/Images/e2x.xml.0.PNG)
+![](/Images/e2x.xml.1.PNG)
+
 
         
         
         
-![](/Images/search_and_get.0.png)  
+![](/Images/.0.png)  
 
         
 
-![](/Images/listStructure.0.png)
 
-        
-
-![](/Images/listExifTags.0.png)
-
-        
-
-![](/Images/man_Orientation.0.png)
 
 ----------------------------------------------
 
