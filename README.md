@@ -117,28 +117,28 @@ _(thanks to)_
         
         
         
-![](/Images/cheerio.0.PNG)  
+![](/Images/cheerio.0.png)  
 
         var mat = e2x.esmat(ast)
         var pldfs = e2x.pldfs(mat)
 
-![](/Images/pldfs.0.PNG) 
+![](/Images/pldfs.0.png) 
 
         var attrdfs = e2x.attrdfs(mat)
         
-![](/Images/attrdfs.0.PNG)
+![](/Images/attrdfs.0.png)
 
         var locdfs = e2x.locdfs(mat)
         
-![](/Images/locdfs.0.PNG)
+![](/Images/locdfs.0.png)
 
         var plwfs = e2x.plwfs(mat)
 
-![](/Images/plwfs.0.PNG)
+![](/Images/plwfs.0.png)
 
         var locwfs = e2x.locwfs(mat)        
 
-![](/Images/locwfs.0.PNG)
+![](/Images/locwfs.0.png)
 
 
 ----------------------------------------------
