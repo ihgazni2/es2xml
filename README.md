@@ -31,13 +31,22 @@ __2. search the AST using css selector__
         $("[type=BinaryExpression]")[0].attribs.operator
         //according to estree spec , some special-chars-not-allowed-in-html exist, so need escape/unescape
         unescape($("[type=BinaryExpression]")[0].attribs.operator)
-__3. __
-
-        var 
-__4. __  
-
         
-__5. __
+__3. flatten and traverse the AST__
+
+        //acorn-walk use sax-like-way to traverse the AST
+        //and too many recursive functions in it, its hard to read
+        //sometimes, its not convient for me to copy and resue the code
+        //so i use a matrix to store it,make everything F-L-A-T and C-L-E-A-R
+        //dfs is depth-first-search-path-record
+        //wfs is width-first-search-path-record
+        var mat = e2x.esmat(ast)
+        var pldfs = e2x.pldfs(mat)
+        var attrdfs = e2x.attrdfs(mat)
+        var locdfs = e2x.locdfs(mat)
+        var plwfs = e2x.plwfs(mat)
+        var locwfs = e2x.locwfs(mat)
+
 
         
 -------------------------------------------------------
@@ -110,8 +119,26 @@ _(thanks to)_
         
 ![](/Images/cheerio.0.PNG)  
 
-        
+        var mat = e2x.esmat(ast)
+        var pldfs = e2x.pldfs(mat)
 
+![](/Images/pldfs.0.PNG) 
+
+        var attrdfs = e2x.attrdfs(mat)
+        
+![](/Images/attrdfs.0.PNG)
+
+        var locdfs = e2x.locdfs(mat)
+        
+![](/Images/locdfs.0.PNG)
+
+        var plwfs = e2x.plwfs(mat)
+
+![](/Images/plwfs.0.PNG)
+
+        var locwfs = e2x.locwfs(mat)        
+
+![](/Images/locwfs.0.PNG)
 
 
 ----------------------------------------------
