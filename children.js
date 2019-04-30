@@ -10,7 +10,10 @@ function engine(tnode,...names) {
         let v = args[i].value
         let name = args[i].name
         let cond = Array.isArray(v)
-        if(cond){
+	if(v === null){
+	    //such as anonymous Function
+	    //do nothing
+	} else if(cond){
             v = elel.mapiv(v,cmmn.creatTreeNodeIV,[rpl,name])
             narr = Array.prototype.concat(narr,v)
         } else {
@@ -318,9 +321,13 @@ FUNCS._Patterns = function(tnode) {
 //
 
 function getChildren(tnode) {
-    let type = tnode.node.type
-    let fn = cmmn.type2fn(type)
-    return(this.FUNCS[fn](tnode))
+    //if(tnode === null) {
+    //    return([])
+    //} else {
+        let type = tnode.node.type
+        let fn = cmmn.type2fn(type)
+        return(this.FUNCS[fn](tnode))
+    //}
 }
 
 function isLeaf(tnode) {
