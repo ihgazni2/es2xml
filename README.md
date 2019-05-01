@@ -8,6 +8,24 @@
 
 ## Usage
 -------------------------------------------------------
+### cmdline
+
+        npm install es2xml -g
+        
+        # ls -l | egrep axios.min.js
+        -rw-r--r-- 1 root root  12941 Feb 19  2018 axios.min.js
+
+        e2x axios.min.js axios.min.xml
+        
+        # ls -l
+        -rw-r--r-- 1 root root  12941 Feb 19  2018 axios.min.js
+        -rw-r--r-- 1 root root 693231 Apr 30 23:56 axios.min.xml
+
+        
+        
+
+
+### code
 
         var e2x = require("es2xml")
         var acorn = require("acorn")
