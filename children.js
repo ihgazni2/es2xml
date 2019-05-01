@@ -10,6 +10,8 @@ function engine(tnode,...names) {
         let v = args[i].value
         let name = args[i].name
         let cond = Array.isArray(v)
+	//
+	//
 	if(v === null){
 	    //such as anonymous Function
 	    //do nothing
