@@ -215,7 +215,7 @@ FUNCS._Statements = function(tnode) {
         return(FUNCS._SwitchStatement(node))
     } else if(node.type === "LabeledStatement") {
         return(FUNCS._LabeledStatement(node))
-    } else if(node.type === "ContinueStatement(node)") {
+    } else if(node.type === "ContinueStatement") {
         return(FUNCS._ContinueStatement(node))
     } else if(node.type === "BreakStatement") {
         return(FUNCS._BreakStatement(node))

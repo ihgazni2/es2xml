@@ -112,4 +112,15 @@ for (var i = 0; i < 5; i++) {\
 
 
 
+def map_func(ele):
+    tem = '''function get@(ast) {
+        return(node.)
+    }
+    '''
+    return(tem.replace('@',ele))
+
+
+arr2 = elel.mapv(arr,map_func)
+
+s = elel.join(arr2,"\n")
 
