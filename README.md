@@ -15,12 +15,29 @@
         # ls -l | egrep axios.min.js
         -rw-r--r-- 1 root root  12941 Feb 19  2018 axios.min.js
 
-        e2x axios.min.js axios.min.xml
-        
+        e2x axios.min.js axios.min.xml "es-"
+
         # ls -l
         -rw-r--r-- 1 root root  12941 Feb 19  2018 axios.min.js
         -rw-r--r-- 1 root root 693231 Apr 30 23:56 axios.min.xml
 
+        vim axios.min.xml
+        
+        <es-root>
+          <es-body>
+            <es-0 type="ExpressionStatement">
+              <es-expression type="UnaryExpression" operator="%21" prefix="true">
+                <es-argument type="CallExpression">
+                  <es-callee type="FunctionExpression" expression="false" generator="false" async="false">
+                    <es-params>
+                      <es-0 type="Identifier" name="e">
+                      </es-0>
+                      <es-1 type="Identifier" name="t">
+                      </es-1>
+                    </es-params>
+                    ......
+
+        
         
         
 
@@ -35,8 +52,9 @@
         var ast = acorn.parse(code)
         
 __1. e2x.xml(ast)__  
-
-        console.log(e2x.xml(ast)) 
+        
+        #tag-prefix = ""
+        console.log(e2x.xml(ast,"")) 
 __2. search the AST using css selector__
 
         var cheerio =require('cheerio')
