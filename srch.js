@@ -110,15 +110,15 @@ function getTypeTable(ast) {
 function getCodeChain(ast,nodeWithPl) {
     let codes = []
     let pl = nodeWithPl._pl
-    while(pl.length >0) {
+    while(pl.length >= 0) {
         let node = exdict.getItemViaPathList0(ast,pl)
 	if(Array.isArray(node)){
 	    node = node[0]
+            let code = escodegen.generate(node)
+            codes.push(code)
 	} else {
 	    
 	}
-	let code = escodegen.generate(node)
-	codes.push(code)
 	pl = JSON.stringify(pl)
 	pl = JSON.parse(pl)
 	pl.pop(pl.length-1)
