@@ -113,11 +113,10 @@ function getCodeChain(ast,nodeWithPl) {
     while(pl.length >= 0) {
         let node = exdict.getItemViaPathList0(ast,pl)
 	if(Array.isArray(node)){
-	    node = node[0]
-            let code = escodegen.generate(node)
-            codes.push(code)
 	} else {
-	    
+            node = node[0]
+            let code = escodegen.generate(node)
+            codes.push(code)    
 	}
 	pl = JSON.stringify(pl)
 	pl = JSON.parse(pl)
