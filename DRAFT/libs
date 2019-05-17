@@ -1,0 +1,8 @@
+//ast
+const ac = require("acorn")
+//ast to code
+const escodegen = require('escodegen')
+//yargs cmdline 工具
+const yargs = require('yargs')
+//hexo-fs 文件夹处理
+const hfs = require('hexo-fs')

@@ -96,6 +96,7 @@ function viaTypeEngine(ast,type) {
 }
 
 
+
 function getTypeTable(ast) {
     let d = {}
     let kl = NODE_TYPES
@@ -107,20 +108,30 @@ function getTypeTable(ast) {
 }
 
 
-function getCodeChain(ast,nodeWithPl) {
+function getCodeChain(ast,nodeWithPl,lv) {
     let codes = []
     let pl = nodeWithPl._pl
-    while(pl.length >= 0) {
-        let node = exdict.getItemViaPathList0(ast,pl)
-	if(Array.isArray(node)){
+    let node
+    let code
+    while(pl.length >0) {
+	if(codes.length === lv) {
+	    return(codes)
 	} else {
-            let code = escodegen.generate(node)
-            codes.push(code)    
+            node = exdict.getItemViaPathList0(ast,pl)
+	    if(Array.isArray(node)){
+
+	    } else {
+                code = escodegen.generate(node)
+                codes.push(code)    
+	    }
+	    pl = JSON.stringify(pl)
+	    pl = JSON.parse(pl)
+	    pl.pop(pl.length-1)
 	}
-	pl = JSON.stringify(pl)
-	pl = JSON.parse(pl)
-	pl.pop(pl.length-1)
     }
+    node = exdict.getItemViaPathList0(ast,[])
+    code = escodegen.generate(node)
+    codes.push(code)
     return(codes)
 }
 
