@@ -10,7 +10,117 @@
 -------------------------------------------------------
 ### cmdline
 
-        npm install es2xml -g
+        #global install
+            npm install es2xml -g
+        #command <input_js_file>, for example:
+            function_declaration angular.min.js
+        #will generate a js file begin with <input_js_file>__
+            E2XLAB# ls -l | egrep angular.min.js__
+            -rw-r--r-- 1 root root  264043 Jun  1 08:03 angular.min.js__undefined_undefined_undefined_undefined_undefined_undefined
+            E2XLAB#
+            E2XLAB# cat angular.min.js__undefined_undefined_undefined_undefined_undefined_undefined | egrep "^function"
+            function N(a) {
+            function ta(a) {
+            function q(a, b, d) {
+            function tc(a, b, d) {
+            function uc(a) {
+            function Yd() {
+            function Pb(a, b, d) {
+            ......
+            
+            E2XLAB#vim angular.min.js__undefined_undefined_undefined_undefined_undefined_undefined | egrep "^function"
+            
+            function N(a) {
+                return function () {
+                    var b = arguments[0], d;
+                    d = '[' + (a ? a + ':' : '') + b + '] http://errors.angularjs.org/1.5.8/' + (a ? a + '/' : '') + b;
+                    for (b = 1; b < arguments.length; b++) {
+                        d = d + (1 == b ? '?' : '&') + 'p' + (b - 1) + '=';
+                        var c = encodeURIComponent, e;
+                        e = arguments[b];
+                        e = 'function' == typeof e ? e.toString().replace(/ \{[\s\S]*$/, '') : 'undefined' == typeof e ? 'undefined' : 'string' != typeof e ? JSON.stringify(e) : e;
+                        d += c(e);
+                    }
+                    return Error(d);
+                };
+            }
+            ================================
+            function ta(a) {
+                if (null == a || Va(a))
+                    return !1;
+                if (L(a) || G(a) || F && a instanceof F)
+                    return !0;
+                var b = 'length' in Object(a) && a.length;
+                return T(b) && (0 <= b && (b - 1 in a || a instanceof Array) || 'function' == typeof a.item);
+            }
+            ================================
+            ......
+          
+        # supported commands     
+        function_expression
+        arrow_function_expression
+        member_expression
+        expression_statement
+        if_statement
+        switch_statement
+        switch_case
+        with_statement
+        block_statement
+        break_statement
+        empty_statement
+        debugger_statement
+        return_statement
+        throw_statement
+        try_statement
+        do_while_statement
+        while_statement
+        for_statement
+        for_of_statement
+        for_in_statement
+        this_expression
+        array_expression
+        array_pattern
+        object_expression
+        object_pattern
+        property
+        unary_expression
+        update_expression
+        binary_expression
+        assignment_expression
+        logical_expression
+        conditional_expression
+        call_expression
+        new_expression
+        sequence_expression
+        yield_expression
+        await_expression
+        variable_declaration
+        variable_declarator
+        catch_clause
+        identifier
+        literal
+        regex_literal
+        super
+        spread_element
+        template_literal
+        template_element
+        tagged_template_expression
+        assignment_pattern
+        rest_element
+        class_declaration
+        class_expression
+        class_body
+        method_definition
+        meta_property
+        import_declaration
+        import_specifier
+        import_default_specifier
+        import_namespace_specifier
+        export_specifier
+        export_default_specifier
+        export_name_declaration
+        export_all_declaration
+
         
         # ls -l | egrep axios.min.js
         -rw-r--r-- 1 root root  12941 Feb 19  2018 axios.min.js
