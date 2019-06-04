@@ -56,6 +56,62 @@ function getNearestAncestorPlViaPl(ast,type,pl) {
 }
 
 
+const SCOPE_TYPES = [
+    "Program",
+    "FunctionDeclaration",
+    "FunctionExpression",
+    "ArrowFunctionExpression",
+    "BlockStatement",
+    "ForStatement",
+    "ForInStatement",
+    "ForOfStatement",
+    "CatchClause",
+    "ComprehensionExpression"
+]
+
+
+
+
+
+
+
+
+
+function get_scope_pl(ast,mat,loc) {
+    let ele = mat[loc[0]][loc[1]]
+    let pl = ele.rpl
+    let npl = JSON.parse(JSON.stringify(pl))
+    while(npl.length>0){
+        let node = exdict.getItemViaPathList0(ast,npl)
+        if(node.type==="Program") {
+            return(npl)
+        } else if(node.type==="FunctionDeclaration") {
+            return(npl.concat("body"))
+        } else if(node.type==="FunctionExpression") {
+            return(npl.concat("body"))
+        } else if(node.type==="ArrowFunctionExpression") {
+            return(npl.concat("body"))
+        } else if(node.type==="BlockStatement") {
+            return(npl)
+        } else if(node.type==="ForStatement") {
+            return(npl.concat("body"))
+        }  else if(node.type==="ForInStatement") {
+            return(npl.concat("body"))
+        }  else if(node.type==="CatchClause") {
+            return(npl.concat("body"))
+        }  else {
+            npl.pop(npl.length-1)
+        }
+    }
+    return(npl)
+}
+
+
+
+
+
+
+
 const BLOCK_SCOPE_ATTRIBS = [
     "BlockStatement", 
     "ForStatement", 
@@ -137,6 +193,13 @@ function getAnlScopes(ast,pldfs){
 }
 
 
+function get_scope_code(ast,mat,loc) {
+    let cd = pl2cd(ast,get_scope_pl(ast,mat,loc))
+    console.log(cd)
+    return(cd)
+}
+
+
 
 module.exports = {
     xml:e2x.xml,
@@ -144,6 +207,7 @@ module.exports = {
     pldfs:esm.getRplDFS,
     locdfs:esm.getLocDFS,
     attrdfs:esm.getAttribDFS,
+    attrwfs:esm.getAttribWFS,
     plwfs:esm.getRplWFS,
     locwfs:esm.getLocWFS,
     NODE_TYPES:srch.NODE_TYPES,
@@ -158,4 +222,6 @@ module.exports = {
     getNearestBlockScopeAncestorPlViaPl:getNearestBlockScopeAncestorPlViaPl,
     getBlockScopeAncestors:getBlockScopeAncestors,
     getAnlScopes:getAnlScopes,
+    get_scope_pl:get_scope_pl,
+    get_scope_code:get_scope_code
 }

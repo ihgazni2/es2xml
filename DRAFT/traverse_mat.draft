@@ -1,0 +1,45 @@
+function traverse_pscope(ast,mat) {
+    for(let i=0;i<mat.length;i++) {
+        let layer = mat[i]
+        for(let j =0;j<layer.length;j++) {
+            let ele = layer[j]
+            if(ele.hasOwnProperty("_pscope") ){
+                console.log("<pscope>")
+                console.log("    "+ele._kind+" :")
+                let var_cd = pl2cd(ast,ele.rpl)
+                var_cd = indentize(var_cd,2)
+                console.log(var_cd)
+                let pscope = ele._pscope
+                console.log("    scope :")
+                let s = loc2code(ast,mat,pscope)
+                s = indentize(s,2)
+                console.log(s)
+                console.log("</pscope>")
+            } else {
+            }
+        }
+    }
+}
+
+
+
+
+function traverse_scope(ast,mat) {
+    for(let i=0;i<mat.length;i++) {
+        let layer = mat[i]
+        for(let j =0;j<layer.length;j++) {
+            let ele = layer[j]
+            if(ele.hasOwnProperty("_scope") && ele._scope.length>0){
+                console.log("<scope>")
+                let scope = ele._scope
+                for(let i=0;i<scope.length;i++){
+                    let var_loc = scope[i]
+                    //loc2code(ast,mat,var_loc)
+                    console.log("    var node: ",loc2nd(ast,mat,var_loc))
+                }
+                console.log("</scope>")
+            } else {
+            }
+        }
+    }
+}

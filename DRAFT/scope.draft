@@ -1,0 +1,621 @@
+const ac = require("acorn")
+var inputFn = "axios.min.js"
+var code = fs.readFileSync(inputFn).toString()
+var ast = ac.parse(code)
+const e2x = require("es2xml")
+
+
+var mat = e2x.esmat(ast)
+
+const exdict = require("exdict")
+
+
+function creatRplLocMapping(mat) {
+    let md = {}
+    for(let i=0;i<mat.length;i++) {
+        let layer = mat[i]
+        for(let j =0;j<layer.length;j++) {
+            let rpl = layer[j].rpl.toString()
+            let loc = [i,j].toString()
+            md[rpl] = loc
+            md[loc] = rpl 
+        }
+    }
+    return(md)
+}
+
+
+
+
+function rpl2loc(md,rpl) {
+    rpl = rpl.toString()
+    let loc = md[rpl]
+    loc = loc.split(",").map((r)=>parseInt(r))
+    return(loc)
+}
+
+
+function getParentVariableDeclaration(ast,rpl) {
+    let parent_rpl = rpl.slice(0,rpl.length-2)
+    let parent_ast = exdict.getItemViaPathList0(ast,parent_rpl)
+    return(parent_ast)
+}
+
+
+//
+const FUNCTION_SCOPE_ATTRIBS = [
+    "FunctionDeclaration",
+    "FunctionExpression",
+    "ArrowFunctionExpression"
+]
+
+
+
+function getNearestFunctionScopeAncestorPlViaPl(ast,pl) {
+    let npl = JSON.parse(JSON.stringify(pl))
+    while(npl.length>0){
+        let node = exdict.getItemViaPathList0(ast,npl)
+        let type = node.type
+        if(FUNCTION_SCOPE_ATTRIBS.includes(type)) {
+            return(npl)
+        } else {
+            npl.pop(npl.length-1)
+        }
+    }
+    return(npl)
+}
+
+var depth = mat.length
+
+
+
+
+
+function initMatScope(mat,ast) {
+    for(let i=0;i<mat.length;i++) {
+        let layer = mat[i]
+        for(let j =0;j<layer.length;j++) {
+            let ele = layer[j]
+            if(ele.type === "BlockStatement"){
+                ele._scope = []
+            } else if (FOR_SCOPE_ATTRIBS.includes(ele.type)) {
+                let sub_ast = exdict.getItemViaPathList0(ast,ele.rpl)
+                if(sub_ast.body.type === "BlockStatement") {
+                    
+                } else {
+                    //特殊处理 for 后面有可能不是 BlockStatement, 
+                    let body_loc = pl2loc(md,ele.rpl.concat('body'))
+                    let x = body_loc[0]
+                    let y = body_loc[1]
+                    mat[x][y]._scope = []
+                }
+            } else {
+                
+            }
+        }
+    }
+    return(mat)
+}
+
+
+
+
+function traverseMat(mat,type) {
+    for(let i=0;i<mat.length;i++) {
+        let layer = mat[i]
+        for(let j =0;j<layer.length;j++) {
+            let ele = layer[j]
+            if(ele.type === type){
+                console.log(ele)
+            } else {
+            }
+        }
+    }
+}
+
+
+
+function getNearestBlockScopeAncestorPlViaPl(ast,pl) {
+    let npl = JSON.parse(JSON.stringify(pl))
+    while(npl.length>0){
+        let node = exdict.getItemViaPathList0(ast,npl)
+        let type = node.type
+        if(type === "BlockStatement") {
+            return(npl)
+        } else {
+            npl.pop(npl.length-1)
+        }
+    }
+    return(null)
+}
+
+
+
+
+
+
+
+for(let i = depth -1;i>-1;i--) {
+    let layer = mat[i]
+    let width = layer.length
+    for(let j=0;j<width;j++) {
+        let ele = layer[j]
+        if(ele.type === "VariableDeclarator") {
+            let sub_ast = exdict.getItemViaPathList0(ast,ele.rpl)
+            let parent_ast = getParentVariableDeclaration(ast,ele.rpl)
+            if(parent_ast.kind === "var") {
+                let afrpl = getNearestFunctionScopeAncestorPlViaPl(ast,ele.rpl)
+                //添加到函数体body BLOCK
+                afrpl.push("body")
+                let af_ast = exdict.getItemViaPathList0(ast,afrpl)
+                let af_loc = rpl2loc(md,afrpl)
+                let x = af_loc[0]
+                let y = af_loc[1]
+                mat[x][y]._scope.push([i,j])
+            } else {
+                let afrpl = getNearestBlockScopeAncestorPlViaPl(ast,ele.rpl)
+                let af_ast = exdict.getItemViaPathList0(ast,afrpl)
+                let af_loc = rpl2loc(md,afrpl)
+                let x = af_loc[0]
+                let y = af_loc[1]
+                mat[x][y]._scope.push([i,j])
+            }
+        }
+    }
+}
+
+
+对于每一个 VariableDeclarator
+
+
+
+
+
+
+//
+
+function getVariableScopeNode(ast,rpl,kind) {
+    
+}
+
+
+
+
+//ast  descmat 
+
+
+
+//rpl  可以找到  位置  
+//位置  可以找到 rpl 
+Map { [ 0, 0 ] => [], [] => [ 0, 0 ] }
+
+
+
+{
+    if (l && (4 === l.readyState || m) && (0 !== l.status || l.responseURL && 0 === l.responseURL.indexOf('file:'))) {
+        var n = 'getAllResponseHeaders' in l ? s(l.getAllResponseHeaders()) : null, 
+            r = e.responseType && 'text' !== e.responseType ? l.response : l.responseText, 
+            i = {
+                data: r,
+                status: 1223 === l.status ? 204 : l.status,
+                statusText: 1223 === l.status ? 'No Content' : l.statusText,
+                headers: n,
+                config: e,
+                request: l
+            };
+        o(t, f, i), l = null;
+    }
+}
+
+nd = exdict.getItemViaPathList0(ast,mat[27][17].rpl)
+escodegen.generate(nd)
+
+function getMatCode(x,y) {
+    let nd = exdict.getItemViaPathList0(ast,mat[x][y].rpl)
+    console.log(escodegen.generate(nd))
+}
+
+
+function getVarId(x,y) {
+    let nd = exdict.getItemViaPathList0(ast,mat[x][y].rpl)
+    return(nd.id.name)
+}
+
+
+//////////////////////////////////////////////////////////////////////////////////////
+
+function getAll(mat,type) {
+    let rslt = []
+    for(let i=0;i<mat.length;i++) {
+        let layer = mat[i]
+        for(let j =0;j<layer.length;j++) {
+            let ele = layer[j]
+            if(ele.type === type){
+                rslt.push(ele)
+            } else {
+            }
+        }
+    }
+    return(rslt)
+}
+
+
+identifiers = getAll(mat,"Identifier")
+
+
+
+cd = `
+    let b = 2
+    let x = 1
+    x = b
+`
+
+t = ac.parse(cd)
+
+
+const BLOCK_SCOPE_ATTRIBS = [
+    "BlockStatement",
+    "ForStatement",
+    "ForInStatement",
+    "ForOfStatement",
+    "CatchClause",
+    "ComprehensionExpression"
+]
+
+
+//
+function deepcopy(obj) {
+    let j = JSON.stringify(obj)
+    let nobj = JSON.parse(j)
+    return(nobj)
+}
+
+function equal(obj1,obj2) {
+    let s1 = JSON.stringify(obj1)
+    let s2 = JSON.stringify(obj2)
+    return(s1 === s2)
+}
+
+
+
+params_array = []
+body_array = []
+prpls = []
+body_locs =[]
+
+
+function getAllFunctions(mat) {
+    let rslt = []
+    for(let i=0;i<mat.length;i++) {
+        let layer = mat[i]
+        for(let j =0;j<layer.length;j++) {
+            let ele = layer[j]
+            if(FUNCTION_SCOPE_ATTRIBS.includes(ele.type)){
+                rslt.push(ele)
+                let nrpl = deepcopy(ele.rpl)
+                let body_rpl = nrpl.concat("body")
+                let body_loc = rpl2loc(md,body_rpl)
+                body_locs.push(body_loc)
+                //params_array.push(params)
+                //body_array.push(body)
+                //
+                let params_rpl = nrpl.concat("params")
+                let params = exdict.getItemViaPathList0(ast,params_rpl)
+                //求出每一个param 的路径
+                for(let k=params.length-1;k> -1;k--) {
+                    let prpl = params_rpl.concat(k)
+                    let loc = rpl2loc(md,prpl)
+                    mat[body_loc[0]][body_loc[1]]._scope.unshift(loc)
+                }
+                
+                
+                
+
+                
+            } else {
+            }
+        }
+    }
+    return(rslt)
+}
+
+funcs = getAllFunctions(mat)
+
+
+
+
+ 
+
+//ast mat md  loc pl nd
+//操作ast:   
+//pl2nd(ast,pl)
+//loc2nd
+// 
+// 
+
+//ast mat md
+//code nd  loc pl 
+
+class ES4 {
+    constructor(code) {
+        this.ast = ac.parse(code)
+        this.mat = e2x.esmat(ast)
+        this.md = creatRplLocMapping(this.mat)
+    }
+    pl2nd(pl){
+        return(exdict.getItemViaPathList0(this.ast,pl))
+    }
+    nd2pl(nd){
+        //每一个nd 都对应一个 pl
+    }
+    pl2loc(pl) {
+    }
+    loc2pl(loc){
+    }
+    loc2nd(loc){
+    }
+}
+
+//
+
+
+
+function loc2nd(ast,mat,loc) {
+    let pl = mat[loc[0]][loc[1]].rpl
+    let nd = exdict.getItemViaPathList0(ast,pl)
+    return(nd)
+}
+
+function loc2code(ast,mat,loc) {
+    let pl = mat[loc[0]][loc[1]].rpl
+    let nd = exdict.getItemViaPathList0(ast,pl)
+    let cd = escodegen.generate(nd)
+    console.log(cd)
+    return(cd)
+}
+
+
+function ploc(mat,loc) {
+    let ele = mat[loc[0]][loc[1]]
+    let depth = ele.depth - 1
+    if(depth<0) {
+        return(null)
+    } else {
+        let pbreadth = ele.pbreadth
+        return([depth,pbreadth])
+    }
+}
+
+
+function pl2code() {
+}
+
+
+//对于每个
+
+const GLOBAL_SCOPE_ATTRIBS = [
+    "Program"
+]
+
+
+const FUNCTION_SCOPE_ATTRIBS = [
+    "FunctionDeclaration",
+    "FunctionExpression",
+    "ArrowFunctionExpression"
+]
+
+const BLOCK_SCOPE_ATTRIBS = [
+    "BlockStatement",
+    "ForStatement",
+    "ForInStatement",
+    "ForOfStatement",
+    "CatchClause",
+    "ComprehensionExpression"
+]
+
+
+const FOR_SCOPE_ATTRIBS = [
+    "ForStatement",
+    "ForInStatement",
+    "ForOfStatement",
+]
+
+
+const SCOPE_TYPES = [
+    "Program",
+    "FunctionDeclaration",
+    "FunctionExpression",
+    "ArrowFunctionExpression",
+    "BlockStatement",
+    "ForStatement",
+    "ForInStatement",
+    "ForOfStatement",
+    "CatchClause",
+    "ComprehensionExpression"
+]
+
+
+// t = ac.parse(`f = r=>6`)
+
+
+
+
+function pl2cd(ast,pl) {
+    let sub_ast = exdict.getItemViaPathList0(ast,pl)
+    let cd = escodegen.generate(sub_ast)
+    return(cd)
+}
+
+
+////
+
+function nd2cd(nd) {
+    let cd = escodegen.generate(nd)
+    console.log(cd)
+    return(cd)
+}
+
+////这个函数特别重要
+////要注意到 if  for  后面可能没有BlockStatement
+// for (var t = {}, n = 0, r = arguments.length; n < r; n++)
+    // v(arguments[n], e);
+// > if(1)var a=4
+// undefined
+// >
+// > a
+// 4
+
+// > if(1)let a=4
+// if(1)let a=4
+     // ^^^
+
+// SyntaxError: Lexical declaration cannot appear in a single-statement context
+
+
+function get_scope_pl(ast,mat,loc) {
+    let ele = mat[loc[0]][loc[1]]
+    let pl = ele.rpl
+    let npl = JSON.parse(JSON.stringify(pl))
+    while(npl.length>0){
+        let node = exdict.getItemViaPathList0(ast,npl)
+        if(node.type==="Program") {
+            return(npl)
+        } else if(node.type==="FunctionDeclaration") {
+            return(npl.concat("body"))
+        } else if(node.type==="FunctionExpression") {
+            return(npl.concat("body"))
+        } else if(node.type==="ArrowFunctionExpression") {
+            return(npl.concat("body"))
+        } else if(node.type==="BlockStatement") {
+            return(npl)
+        } else if(node.type==="ForStatement") {
+            return(npl.concat("body"))
+        }  else if(node.type==="ForInStatement") {
+            return(npl.concat("body"))
+        } else if(node.type==="ForOfStatement") {
+            return(npl.concat("body"))
+        }  else if(node.type==="CatchClause") {
+            return(npl.concat("body"))
+        }  else {
+            //
+            //
+            console.log("==>",npl,node)
+            npl.pop(npl.length-1)
+        }
+    }
+    return(npl)
+}
+
+
+function get_scope_code(ast,mat,loc) {
+    let cd = pl2cd(ast,get_scope_pl(ast,mat,loc))
+    console.log(cd)
+    return(cd)
+}
+
+
+function pl2loc(md,rpl) {
+    rpl = rpl.toString()
+    let loc = md[rpl]
+    loc = loc.split(",").map((r)=>parseInt(r))
+    return(loc)
+}
+
+function pl2loc2(rpl,md) {
+    rpl = rpl.toString()
+    let loc = md[rpl]
+    loc = loc.split(",").map((r)=>parseInt(r))
+    return(loc)
+}
+
+
+
+function get_scope_loc(md,ast,mat,loc) {
+    let scope_loc = pl2loc(md,get_scope_pl(ast,mat,loc))
+    return(scope_loc)
+}
+
+
+////
+
+
+
+////
+
+
+////遍历mat
+
+
+function get_function_param_pls(ast,pl) {
+    let params_pl = pl.concat("params")
+    let param_array = exdict.getItemViaPathList0(ast,params_pl)
+    let param_pls = []
+    for(let i=0;i<param_array.length;i++) {
+        let param_pl = deepcopy(params_pl)
+        param_pl.push(i)
+        param_pls.push(param_pl)
+    }
+    return(param_pls)
+}
+
+const elel = require("elist")
+
+const FOR_ATTRIBS = [
+    "ForStatement",
+    "ForInStatement",
+    "ForOfStatement",
+]
+
+/////////////////////////////
+//VariableDeclarator  ->
+
+
+function fullfill_mat_scope(ast,mat,md) {
+    for(let i=0;i<mat.length;i++) {
+        let layer = mat[i]
+        for(let j =0;j<layer.length;j++) {
+            let ele = layer[j]
+            let loc =[i,j]
+            if(ele.type === "VariableDeclarator") {
+                //包含了FOR_ATTRIBS.includes(ele.type)
+                let scope_loc = get_scope_loc(md,ast,mat,loc)
+                let x = scope_loc[0]
+                let y = scope_loc[1]
+                console.log(loc,x,y)
+                mat[x][y]._scope.push(loc)
+            } else if(FUNCTION_SCOPE_ATTRIBS.includes(ele.type)) {
+                //处理params, prepend 到最前
+                let scope_loc = get_scope_loc(md,ast,mat,loc)
+                let x = scope_loc[0]
+                let y = scope_loc[1]
+                let pl = ele.rpl
+                let param_pls = get_function_param_pls(ast,pl)
+                let param_locs = elel.mapv(param_pls,pl2loc2,[md])
+                mat[x][y]._scope = param_locs.concat(mat[x][y]._scope)
+            }  else if(ele.type==="CatchClause") {
+                //处理param shift
+                let scope_loc = get_scope_loc(md,ast,mat,loc)
+                let x = scope_loc[0]
+                let y = scope_loc[1]
+                let pl = ele.rpl
+                let param_pl = pl.concat('param')
+                let param_loc = pl2loc(md,param_pl)
+                mat[x][y]._scope.unshift(param_loc)
+            } else {
+                
+            }
+        }
+    }
+    return(mat)
+}
+
+var mat = e2x.esmat(ast)
+initMatScope(mat,ast)
+mat = fullfill_mat_scope(ast,mat,md)
+
+
+
+
+
+
+

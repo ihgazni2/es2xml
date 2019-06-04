@@ -201,6 +201,23 @@ function getLocWFS(mat) {
 }
 
 //
+function getAttribWFS(mat) {
+    let wfs = []
+    for(let i in mat) {
+        let layer = mat[i]
+        for(let j in layer) {
+	    let ele = layer[j]
+            let attribs = ele.attribs
+            wfs.push(attribs)
+        }
+    }
+    return(wfs)
+}
+
+
+
+
+//
 function isSiblingViaLocs(mat,loc1,loc2) {
     if(loc1 === loc2) {
         return(false)
@@ -329,6 +346,7 @@ module.exports = {
     getSthDFS:getSthDFS,
     getRplDFS:getRplDFS,
     getAttribDFS:getAttribDFS,
+    getAttribWFS:getAttribWFS,
     getSrcCode:getSrcCode,
     getSrcDFS:getSrcDFS,
     isTroot:isTroot,

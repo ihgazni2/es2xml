@@ -60,9 +60,11 @@ function maybeNodeToCode(maybeNode) {
     }
 }
 
-
+//Program
+//Identifier
 
 const KEYS = {
+    //
     _Program:{
         nonLeaf:["body"],
 	leaf:['sourceType'],
@@ -71,6 +73,7 @@ const KEYS = {
 	srch:['body','sourceType'],
 	srchFuncs:['bodysToCode','doNothing']
     },
+    //
     _Function:{
         nonLeaf:['id','params','body'],
 	leaf:['expression','generator','async'],
@@ -79,6 +82,7 @@ const KEYS = {
 	srch:['id','expression','generator','async','params','body'],
 	srchFuncs:[escodegen.generate,doNothing,doNothing,doNothing,paramsToCode,escodegen.generate]
     },
+    //
     _ExpressionStatement:{
         nonLeaf:['expression'],
         leaf:[],
@@ -87,6 +91,7 @@ const KEYS = {
         srch:['expression'],
         srchFuncs:[doNothing]
     },
+    //
     _IfStatement:{
         nonLeaf:['test','alternate','consequent'],
         leaf:[],
@@ -95,6 +100,7 @@ const KEYS = {
         srch:['test','alternate','consequent'],
         srchFuncs:[maybeNodeToCode,maybeNodeToCode,maybeNodeToCode]
     },
+    //
     _SwitchStatement:{
         nonLeaf:["discriminant","cases"],
         leaf:[],
@@ -103,6 +109,7 @@ const KEYS = {
         srch:["discriminant","cases"],
         srchFuncs:[nodesToCode,nodesToCode]
     },
+    //
     _LabeledStatement:{
         nonLeaf:["label","body"],
         leaf:[],
@@ -111,6 +118,7 @@ const KEYS = {
         srch:["label","body"],
         srchFuncs:[nodesToCode,nodesToCode]
     },
+    //
     _ContinueStatement:{
         nonLeaf:["label"],
         leaf:[],
@@ -119,6 +127,7 @@ const KEYS = {
         srch:["label"],
         srchFuncs:[nodesToCode]
     },
+    //
     _BreakStatement:{
         nonLeaf:["label"],
         leaf:[],
@@ -127,6 +136,7 @@ const KEYS = {
         srch:["label"],
         srchFuncs:[nodesToCode]
     },
+    //
     _WithStatement:{
         nonLeaf:["object","body"],
         leaf:[],
@@ -135,6 +145,7 @@ const KEYS = {
         srch:["object","body"],
         srchFuncs:[nodesToCode,nodesToCode]
     },
+    //
     _BlockStatement:{
         nonLeaf:["body"],
         leaf:[],
@@ -143,6 +154,7 @@ const KEYS = {
         srch:["body"],
         srchFuncs:[nodesToCode]
     },
+    //
     _EmptyStatement:{
         nonLeaf:[],
         leaf:[],
@@ -151,6 +163,7 @@ const KEYS = {
         srch:[],
         srchFuncs:[]
     },
+    //
     _DebuggerStatement:{
         nonLeaf:[],
         leaf:[],
@@ -159,6 +172,7 @@ const KEYS = {
         srch:[],
         srchFuncs:[]
     },
+    //
     _ReturnStatement:{
         nonLeaf:['argument'],
         leaf:[],
@@ -167,6 +181,7 @@ const KEYS = {
         srch:['argument'],
         srchFuncs:[maybeNodeToCode]
     },
+    //
     _ThrowStatement:{
         nonLeaf:['argument'],
         leaf:[],
@@ -175,6 +190,7 @@ const KEYS = {
         srch:['argument'],
         srchFuncs:[maybeNodeToCode]
     },
+    //
     _TryStatement:{
         nonLeaf:["block","handler","finalizer"],
         leaf:[],
@@ -183,6 +199,7 @@ const KEYS = {
         srch:["block","handler","finalizer"],
         srchFuncs:[maybeNodeToCode,maybeNodeToCode,maybeNodeToCode]
     },
+    //
     _DoWhileStatement:{
         nonLeaf:["body","test"],
         leaf:[],
@@ -191,6 +208,7 @@ const KEYS = {
         srch:["body","test"],
         srchFuncs:[maybeNodeToCode,maybeNodeToCode]
     },
+    //
     _WhileStatement:{
         nonLeaf:["test","body"],
         leaf:[],
@@ -199,6 +217,7 @@ const KEYS = {
         srch:["test","body"],
         srchFuncs:[maybeNodeToCode,maybeNodeToCode]
     },
+    //
     _ForStatement:{
         nonLeaf:["init","test","update","body"],
         leaf:[],
@@ -391,6 +410,7 @@ const KEYS = {
         srch:['id','init'],
         srchFuncs:[maybeNodeToCode,maybeNodeToCode]
     },
+    //
     _SwitchCase:{
         nonLeaf:["test","consequent"],
         leaf:[],
@@ -399,6 +419,7 @@ const KEYS = {
         srch:["test","consequent"],
         srchFuncs:[nodesToCode,nodesToCode]
     },
+    //
     _CatchClause:{
         nonLeaf:["param","body"],
         leaf:[],
@@ -407,6 +428,7 @@ const KEYS = {
         srch:["param","body"],
         srchFuncs:[maybeNodeToCode,nodesToCode]
     },
+    //
     _Identifier:{
         nonLeaf:[],
 	leaf:['name'],
@@ -415,6 +437,7 @@ const KEYS = {
 	srch:['name'],
 	srchFuncs:["doNothing"]
     },
+    //
     _Literal:{
         nonLeaf:[],
 	leaf:['value','raw'],
@@ -423,6 +446,7 @@ const KEYS = {
 	srch:['value','raw'],
 	srchFuncs:["doNothing","doNothing"]
     },
+    //
     _RegExpLiteral:{
 	type:"Literal",
         nonLeaf:[],
@@ -448,7 +472,7 @@ const KEYS = {
         srch:["argument"],
         srchFuncs:[maybeNodeToCode]
     },
-   //需要start end 信息才能还原
+   ////需要start end 信息才能还原
     _TemplateLiteral:{
         nonLeaf:["expressions","quasis"],
         leaf:[],
@@ -600,7 +624,9 @@ const KEYS = {
 }
 
 KEYS._Programs = KEYS._Program
+//
 KEYS._FunctionDeclaration = KEYS._Function
+//
 KEYS._FunctionExpression = KEYS._Function
 KEYS._ParenthesizedExpression = KEYS._ExpressionStatement
 KEYS._Directive = KEYS._ExpressionStatement
