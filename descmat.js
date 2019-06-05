@@ -187,12 +187,13 @@ function getRplWFS(mat) {
     return(wfs)
 }
 
+//for in 会导致number 变string
 //
 function getLocWFS(mat) {
     let wfs = []
-    for(let i in mat) {
+    for(let i=0;i<mat.length;i++) {
         let layer = mat[i]
-        for(let j in layer) {
+        for(let j=0; j<layer.length;j++) {
             let loc = [i,j]
             wfs.push(loc)
         }
@@ -324,7 +325,6 @@ function getSrcDFS(mat,s){
 
 
 //
-
 
 
 module.exports = {
