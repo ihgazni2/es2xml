@@ -433,7 +433,7 @@ const INTFS = {
         const_non_leaf_types:[],
         var_leaf:[],
         var_leaf_types:[],
-        var_non_leaf:["init","test","update","body"],
+        var_non_leaf:["init","test","body","update"],
         var_non_leaf_types:["node","node","node","node"]
     },
     

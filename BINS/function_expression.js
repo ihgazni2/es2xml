@@ -186,10 +186,19 @@ function paramsToCode(params) {
     return(s)
 }
 
+function generate(nd){
+    let code;
+    try {
+        code = escodegen.generate(nd)
+        return(code)
+    } catch(e) {
+        return(nd)
+    } 
+}
 
 
 attribs = ['id','expression','generator','async','params','body']
-var funcs = [escodegen.generate,doNothing,doNothing,doNothing,paramsToCode,escodegen.generate]
+var funcs = [generate,doNothing,doNothing,doNothing,paramsToCode,generate]
 
 
 

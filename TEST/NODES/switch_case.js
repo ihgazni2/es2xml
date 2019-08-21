@@ -1,0 +1,5 @@
+{
+       type: 'SwitchCase',
+       consequent: [],
+       test: {}
+}

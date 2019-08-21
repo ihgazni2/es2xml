@@ -1,0 +1,6 @@
+ {
+  type: 'WhileStatement',
+  test: {},
+  body: {}
+ }
+

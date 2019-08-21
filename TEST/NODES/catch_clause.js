@@ -1,0 +1,7 @@
+{
+     type: 'CatchClause',
+     param: {},
+     body: {}
+}
+
+
