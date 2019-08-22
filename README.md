@@ -10,6 +10,8 @@
 -------------------------------------------------------
 ### cmdline
 
+ __1. select nodes__
+
         #global install
             npm install es2xml -g
         #command <input_js_file>, for example:
@@ -148,7 +150,23 @@
                     ......
 
         
-        
+ 
+ __2. beautify__
+ 
+       #npm install es2xml -g
+       #esbeau mozilla.tst.1.js
+       # head beauty.mozilla.tst.1.js
+       (function (global, factory) {
+           if (typeof module === 'object' && typeof module.exports === 'object') {
+               module.exports = global.document ? factory(global, true) : function (w) {
+                   if (!w.document) {
+                       throw new Error('jQuery requires a window with a document');
+                   }
+                   return factory(w);
+               };
+           } else {
+                factory(global);
+     
         
 
 
