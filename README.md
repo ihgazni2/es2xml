@@ -60,6 +60,7 @@
           
         # supported commands     
         function_expression
+        function_declaration
         arrow_function_expression
         member_expression
         expression_statement
@@ -69,6 +70,8 @@
         with_statement
         block_statement
         break_statement
+        continue_statement
+        label_statement
         empty_statement
         debugger_statement
         return_statement
