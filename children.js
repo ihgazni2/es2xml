@@ -51,9 +51,9 @@ const KEYS = {
     _ArrayExpression:["elements"],
     _ObjectExpression:["properties"],
     _Property:["key","value"],
-    _UnaryExpression:["argument","prefix"],
+    _UnaryExpression:["argument"],
     _UnaryOperator:[],
-    _UpdateExpression:["argument","prefix"],
+    _UpdateExpression:["argument"],
     _UpdateOperator:[],
     _BinaryExpression:["left","right"],
     _BinaryOperator:[],
@@ -326,6 +326,7 @@ function getChildren(tnode) {
     //if(tnode === null) {
     //    return([])
     //} else {
+    // 
         let type = tnode.node.type
         let fn = cmmn.type2fn(type)
         return(this.FUNCS[fn](tnode))
