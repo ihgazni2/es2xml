@@ -7,10 +7,9 @@ const md = {
 
 const allks = ["value","raw","regex"]
 const chks = []
-
 const literals = ['string','number','regexp','true','false','null']
 
-function is_litral(nd) {
+function is_literal(nd) {
     return(nd.type === 'Literal')
 }
 
@@ -20,7 +19,13 @@ function is_regex(nd) {
     return(cond0 && cond1)
 }
 
-function get_raw(val) {
+
+function exec(nd) {
+    return(nd.value)
+}
+
+
+function other2raw(val) {
     if(val === null) {
         return('null')
     } else {
@@ -28,25 +33,32 @@ function get_raw(val) {
     }
 }
 
-function get_regex(val) {
+function regex2raw(regex) {
     return({
-        pattrn:val.source,
-        flags:val.flags
+        pattrn:regex.source,
+        flags:regex.flags
     })
 }
 
-function value2literal(val) {
+function val2raw(val) {
+    if(util.isRegExp(val)) {
+        return(regex2raw(val)) 
+    } else {
+        return(other2raw(val))
+    }     
+}
+
+
+function val2nd(val) {
     let d = {}
     d.value = val
-    d.raw = get_raw(val)
-    if(util.isRegExp(val)) {
-        d.regex = get_regex(val)
-    } else {
-    }
+    d.raw = val2raw(val) 
     return(d)
 }
 
 module.exports = {
-    value2literal:value2literal
+    is_literal,
+    val2nd,
+    exec,
 }
 

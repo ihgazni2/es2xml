@@ -1,0 +1,24 @@
+
+number
+    Node { type: 'Literal', start: 0, end: 1, value: 1, raw: '1' }
+
+string
+    Node { type: 'Literal', start: 0, end: 3, value: '1', raw: '"1"' }
+
+boolean   
+    Node { type: 'Literal', start: 0, end: 4, value: true, raw: 'true' }
+
+null
+    Node { type: 'Literal', start: 0, end: 4, value: null, raw: 'null' }      
+
+
+regex
+    Node {
+       type: 'Literal',
+       start: 0,
+       end: 4,
+       value: /a/g,
+       raw: '/a/g',
+       regex: { pattern: 'a', flags: 'g' } 
+   }
+     
