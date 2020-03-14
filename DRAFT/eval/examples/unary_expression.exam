@@ -1,0 +1,83 @@
+unary_plus
+
+Node {
+  type: 'UnaryExpression',
+  start: 0,
+  end: 2,
+  operator: '+',
+  prefix: true,
+  argument:
+   Node { type: 'Literal', start: 1, end: 2, value: 1, raw: '1' } }
+
+
+unary_negation
+
+Node {
+  type: 'UnaryExpression',
+  start: 0,
+  end: 2,
+  operator: '-',
+  prefix: true,
+  argument:
+   Node { type: 'Literal', start: 1, end: 2, value: 1, raw: '1' } }
+
+
+logical_not
+
+Node {
+  type: 'UnaryExpression',
+  start: 0,
+  end: 2,
+  operator: '!',
+  prefix: true,
+  argument:
+   Node { type: 'Literal', start: 1, end: 2, value: 1, raw: '1' } }
+
+
+
+bitwise_not
+
+Node {
+  type: 'UnaryExpression',
+  start: 0,
+  end: 2,
+  operator: '~',
+  prefix: true,
+  argument:
+   Node { type: 'Literal', start: 1, end: 2, value: 1, raw: '1' } }
+
+
+typeof
+
+Node {
+  type: 'UnaryExpression',
+  start: 0,
+  end: 9,
+  operator: 'typeof',
+  prefix: true,
+  argument:
+   Node { type: 'Literal', start: 7, end: 8, value: 1, raw: '1' } }
+
+
+delete
+
+Node {
+  type: 'UnaryExpression',
+  start: 0,
+  end: 9,
+  operator: 'delete',
+  prefix: true,
+  argument: Node { type: 'Identifier', start: 7, end: 8, name: 'a' } }
+
+
+void
+
+Node {
+  type: 'UnaryExpression',
+  start: 0,
+  end: 7,
+  operator: 'void',
+  prefix: true,
+  argument:
+   Node { type: 'Literal', start: 5, end: 6, value: 0, raw: '0' } }
+
