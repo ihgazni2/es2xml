@@ -7,6 +7,7 @@ const md = {
 
 const allks = ["value","raw","regex"]
 const chks = []
+const regexks =["pattern","flags"]
 const literals = ['string','number','regexp','true','false','null']
 
 function is_literal(nd) {
@@ -35,7 +36,7 @@ function other2raw(val) {
 
 function regex2raw(regex) {
     return({
-        pattrn:regex.source,
+        pattern:regex.source,
         flags:regex.flags
     })
 }

@@ -2,108 +2,65 @@ const util = require('util')
 
 
 const md = {
-    'unary_expression':'UnaryExpression',
-    'UnaryExpression':'unary_expression'
+    'update_expression':'UpdateExpression',
+    'UpdateExpression':'update_expression'
 }
 
 const allks = ["prefix","operator","argument"]
-const chks = []
-const unary_operators = [
-    '+','-','!','++','--','~'    
+const chks = ['argument']
+const update_operators = [
+    '++','--'    
 ]
 
-const unary_operator_names = [
-    'unary_plus',
-    'unary_negation',
-    'logical_not',
-    'increment',
-    'decrement',
-    'bitwise_not',
-    'typeof',
-    'delete',
-    'void',
+const update_operator_names = [
+    ['prefix_increment','suffix_increment']
+    ['prefix_decrement','suffix_decrement']
 ]
 
 
-function is_unary_expression(nd) {
-    return(nd.type === 'UnaryExpression')
+function is_update_expression(nd) {
+    return(nd.type === 'UpdateExpression')
 }
 
 
-function exec_unary_plus(val) {
-    return(+val)
+
+
+function exec_prefix_increment(id,ctx) {
+    //傳入的ctx[id] 要麽是 literal,要麽是帶有scope鏈的
+    return(++ctx[id])
 }
 
-function exec_unary_negation(val){
-    return(-val)
+function exec_prefix_decrement(id,ctx) {
+    //傳入的ctx[id] 要麽是 literal,要麽是帶有scope鏈的
+    return(--ctx[id])
 }
 
-function exec_logical_not(val) {
-    return(!val)
+function exec_suffix_increment(id,ctx) {
+    //傳入的ctx[id] 要麽是 literal,要麽是帶有scope鏈的
+    return(ctx[id]++)
 }
 
-function exec_prefix_increment(val) {
-    //傳入的val 要麽是 literal,要麽是帶有scope鏈的
-    return(++val)
-}
-
-function exec_prefix_decrement(val) {
-    //傳入的val 要麽是 literal,要麽是帶有scope鏈的
-    return(--val)
-}
-
-function exec_suffix_increment(val) {
-    //傳入的val 要麽是 literal,要麽是帶有scope鏈的
-    return(val++)
-}
-
-function exec_suffix_decrement(val) {
-    //傳入的val 要麽是 literal,要麽是帶有scope鏈的
-    return(val--)
+function exec_suffix_decrement(id,ctx) {
+    //傳入的ctx[id] 要麽是 literal,要麽是帶有scope鏈的
+    return(ctx[id]--)
 }
 
 
-function exec_bitwise_not(val) {
-    return(~val)    
-}
 
-function exec_typeof(val) {
-    return(typeof(val))
-}
-
-function exec_delete(val) {
-    //傳入的val 要麽是 literal,要麽是帶有scope鏈的
-    return(delete val)
-}
-
-function exec(nd) {
+function exec(nd,ctx) {
     //argument already be handled 
-    if(nd.operator === '+') {
-        return(exec_unary_plus(nd.argument))
-    } else if(nd.operator === '-') {
-        return(exec_unary_negation(nd.argument))
-    } else if(nd.operator === '!') {
-        return(exec_logical_not(nd.argument))
-    }  else if(nd.operator === '++') {
+    if(nd.operator === '++') {
         if(nd.prefix === true) {
-            return(exec_prefix_increment(nd.argument))
+            return(exec_prefix_increment(nd.argument,ctx))
         } else {
-            return(exec_suffix_increment(nd.argument))
+            return(exec_suffix_increment(nd.argument,ctx))
         }     
     } else if(nd.operator === '--') {
         if(nd.prefix === true){
-            return(exec_prefix_decrement(nd.argument))    
+            return(exec_prefix_decrement(nd.argument,ctx))    
         } else {
-            return(exec_suffix_decrement(nd.argument))
+            return(exec_suffix_decrement(nd.argument,ctx))
         }
-    } else if(nd.operator === '~') {
-        return(exec_bitwise_not(nd.argument))
-    } else if(nd.operator === 'typeof') {
-        return(exec_typeof(nd.argument))
-    } else if(nd.operator === 'delete') {
-        return(exec_delete(nd.argument))
-    } else if(nd.operator === 'void') {
-        return(exec_void(nd.argument))
     } else {
         throw('not_supported')
     }
@@ -111,7 +68,7 @@ function exec(nd) {
 
 
 module.exports = {
-    is_unary_expression,
+    is_update_expression,
     exec,
 }
 

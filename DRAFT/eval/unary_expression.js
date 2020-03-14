@@ -7,9 +7,9 @@ const md = {
 }
 
 const allks = ["prefix","operator","argument"]
-const chks = []
+const chks = ["argument"]
 const unary_operators = [
-    '+','-','!','++','--','~'    
+    '+','-','!','~','typeof','delete','void'    
 ]
 
 const unary_operator_names = [
@@ -49,12 +49,18 @@ function exec_typeof(val) {
     return(typeof(val))
 }
 
-function exec_delete(val) {
+function exec_delete(id,ctx) {
     //傳入的val 要麽是 literal,要麽是帶有scope鏈的
-    return(delete val)
+    return(delete(ctx[id]))
 }
 
-function exec(nd) {
+function exec_void(val) {
+    return(void(val))
+}
+
+
+
+function exec(nd,ctx) {
     //argument already be handled 
     if(nd.operator === '+') {
         return(exec_unary_plus(nd.argument))
@@ -67,7 +73,7 @@ function exec(nd) {
     } else if(nd.operator === 'typeof') {
         return(exec_typeof(nd.argument))
     } else if(nd.operator === 'delete') {
-        return(exec_delete(nd.argument))
+        return(exec_delete(nd.argument,ctx))
     } else if(nd.operator === 'void') {
         return(exec_void(nd.argument))
     } else {

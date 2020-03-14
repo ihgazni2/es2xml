@@ -1,0 +1,45 @@
+prefix_increment
+
+Node {
+  type: 'UpdateExpression',
+  start: 0,
+  end: 3,
+  operator: '++',
+  prefix: true,
+  argument: Node { type: 'Identifier', start: 2, end: 3, name: 'a' } }
+
+
+suffix_increment
+
+Node {
+  type: 'UpdateExpression',
+  start: 0,
+  end: 3,
+  operator: '++',
+  prefix: false,
+  argument: Node { type: 'Identifier', start: 0, end: 1, name: 'a' } }
+
+
+
+prefix_decrement
+
+Node {
+  type: 'UpdateExpression',
+  start: 0,
+  end: 3,
+  operator: '--',
+  prefix: true,
+  argument: Node { type: 'Identifier', start: 2, end: 3, name: 'a' } }
+
+
+suffix_decrement
+
+Node {
+  type: 'UpdateExpression',
+  start: 0,
+  end: 3,
+  operator: '--',
+  prefix: false,
+  argument: Node { type: 'Identifier', start: 0, end: 1, name: 'a' } }
+
+
