@@ -8,6 +8,7 @@ const md = {
 
 const allks = ["prefix","operator","argument"]
 const chks = ["argument"]
+const leafks = ["prefix","operator"]
 const unary_operators = [
     '+','-','!','~','typeof','delete','void'    
 ]

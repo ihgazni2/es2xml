@@ -1,0 +1,262 @@
+add
+   Node {
+     type: 'BinaryExpression',
+     start: 0,
+     end: 3,
+     left:
+      Node { type: 'Literal', start: 0, end: 1, value: 1, raw: '1' },
+     operator: '+',
+     right:
+      Node { type: 'Literal', start: 2, end: 3, value: 1, raw: '1' } 
+
+sub
+
+   Node {
+     type: 'BinaryExpression',
+     start: 0,
+     end: 3,
+     left:
+      Node { type: 'Literal', start: 0, end: 1, value: 1, raw: '1' },
+     operator: '-',
+     right:
+      Node { type: 'Literal', start: 2, end: 3, value: 1, raw: '1' }
+
+mul
+
+   Node {
+     type: 'BinaryExpression',
+     start: 0,
+     end: 3,
+     left:
+      Node { type: 'Literal', start: 0, end: 1, value: 1, raw: '1' },
+     operator: '*',
+     right:
+      Node { type: 'Literal', start: 2, end: 3, value: 1, raw: '1' }
+
+div
+
+   Node {
+     type: 'BinaryExpression',
+     start: 0,
+     end: 3,
+     left:
+      Node { type: 'Literal', start: 0, end: 1, value: 1, raw: '1' },
+     operator: '/',
+     right:
+      Node { type: 'Literal', start: 2, end: 3, value: 1, raw: '1' } 
+
+mod
+
+   Node {
+     type: 'BinaryExpression',
+     start: 0,
+     end: 3,
+     left:
+      Node { type: 'Literal', start: 0, end: 1, value: 1, raw: '1' },
+     operator: '%',
+     right:
+      Node { type: 'Literal', start: 2, end: 3, value: 1, raw: '1' } }
+
+pow
+
+   Node {
+     type: 'BinaryExpression',
+     start: 0,
+     end: 4,
+     left:
+      Node { type: 'Literal', start: 0, end: 1, value: 1, raw: '1' },
+     operator: '**',
+     right:
+      Node { type: 'Literal', start: 3, end: 4, value: 1, raw: '1' } }
+
+eq
+
+
+   Node {
+     type: 'BinaryExpression',
+     start: 0,
+     end: 4,
+     left:
+      Node { type: 'Literal', start: 0, end: 1, value: 1, raw: '1' },
+     operator: '==',
+     right:
+      Node { type: 'Literal', start: 3, end: 4, value: 1, raw: '1' } }
+
+
+ieq
+
+
+   Node {
+     type: 'BinaryExpression',
+     start: 0,
+     end: 5,
+     left:
+      Node { type: 'Literal', start: 0, end: 1, value: 1, raw: '1' },
+     operator: '===',
+     right:
+      Node { type: 'Literal', start: 4, end: 5, value: 1, raw: '1' } }
+
+
+
+neq
+
+
+   Node {
+     type: 'BinaryExpression',
+     start: 0,
+     end: 4,
+     left:
+      Node { type: 'Literal', start: 0, end: 1, value: 1, raw: '1' },
+     operator: '!=',
+     right:
+      Node { type: 'Literal', start: 3, end: 4, value: 1, raw: '1' } }
+
+
+
+nieq
+
+   Node {
+     type: 'BinaryExpression',
+     start: 0,
+     end: 5,
+     left:
+      Node { type: 'Literal', start: 0, end: 1, value: 1, raw: '1' },
+     operator: '!==',
+     right:
+      Node { type: 'Literal', start: 4, end: 5, value: 1, raw: '1' } }
+
+
+
+gt
+
+   Node {
+     type: 'BinaryExpression',
+     start: 0,
+     end: 3,
+     left:
+      Node { type: 'Literal', start: 0, end: 1, value: 1, raw: '1' },
+     operator: '>',
+     right:
+      Node { type: 'Literal', start: 2, end: 3, value: 1, raw: '1' } }
+
+
+
+lt
+
+   Node {
+     type: 'BinaryExpression',
+     start: 0,
+     end: 3,
+     left:
+      Node { type: 'Literal', start: 0, end: 1, value: 1, raw: '1' },
+     operator: '<',
+     right:
+      Node { type: 'Literal', start: 2, end: 3, value: 1, raw: '1' } }
+
+
+ge
+
+   Node {
+     type: 'BinaryExpression',
+     start: 0,
+     end: 4,
+     left:
+      Node { type: 'Literal', start: 0, end: 1, value: 1, raw: '1' },
+     operator: '>=',
+     right:
+      Node { type: 'Literal', start: 3, end: 4, value: 1, raw: '1' } }
+
+
+le
+
+   Node {
+     type: 'BinaryExpression',
+     start: 0,
+     end: 4,
+     left:
+      Node { type: 'Literal', start: 0, end: 1, value: 1, raw: '1' },
+     operator: '<=',
+     right:
+      Node { type: 'Literal', start: 3, end: 4, value: 1, raw: '1' } }
+
+
+band
+
+   Node {
+     type: 'BinaryExpression',
+     start: 0,
+     end: 5,
+     left:
+      Node { type: 'Literal', start: 0, end: 1, value: 1, raw: '1' },
+     operator: '&',
+     right:
+      Node { type: 'Literal', start: 4, end: 5, value: 1, raw: '1' } }
+
+
+bor
+
+   Node {
+     type: 'BinaryExpression',
+     start: 0,
+     end: 5,
+     left:
+      Node { type: 'Literal', start: 0, end: 1, value: 1, raw: '1' },
+     operator: '|',
+     right:
+      Node { type: 'Literal', start: 4, end: 5, value: 1, raw: '1' } }
+
+
+bxor
+
+
+   Node {
+     type: 'BinaryExpression',
+     start: 0,
+     end: 5,
+     left:
+      Node { type: 'Literal', start: 0, end: 1, value: 1, raw: '1' },
+     operator: '^',
+     right:
+      Node { type: 'Literal', start: 4, end: 5, value: 1, raw: '1' } }
+
+
+lshift
+
+   Node {
+     type: 'BinaryExpression',
+     start: 0,
+     end: 6,
+     left:
+      Node { type: 'Literal', start: 0, end: 1, value: 1, raw: '1' },
+     operator: '<<',
+     right:
+      Node { type: 'Literal', start: 5, end: 6, value: 1, raw: '1' } }
+
+
+rshift
+
+
+   Node {
+     type: 'BinaryExpression',
+     start: 0,
+     end: 6,
+     left:
+      Node { type: 'Literal', start: 0, end: 1, value: 1, raw: '1' },
+     operator: '>>',
+     right:
+      Node { type: 'Literal', start: 5, end: 6, value: 1, raw: '1' } }
+
+
+urshift
+
+
+   Node {
+     type: 'BinaryExpression',
+     start: 0,
+     end: 7,
+     left:
+      Node { type: 'Literal', start: 0, end: 1, value: 1, raw: '1' },
+     operator: '>>>',
+     right:
+      Node { type: 'Literal', start: 6, end: 7, value: 1, raw: '1' } }
+

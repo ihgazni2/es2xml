@@ -8,7 +8,7 @@ const md = {
 const allks = ["value","raw","regex"]
 const chks = []
 const regexks =["pattern","flags"]
-const literals = ['string','number','regexp','true','false','null']
+const literal_names = ['string','number','regexp','true','false','null']
 
 function is_literal(nd) {
     return(nd.type === 'Literal')
