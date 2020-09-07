@@ -196,3 +196,103 @@ tst {}
 >
 >
 
+
+///题目初始化
+
+var prop = 'global.prop';
+var obj = {
+    prop: 'obj.prop',
+    array:[
+        100,
+        function() {
+            console.log(this.prop);
+        },
+        200
+    ]
+}
+obj.array.prop = 'obj.array.prop';
+
+
+//预热
+global.prop;
+obj.prop;
+obj.array.prop;
+obj.array[1].prop;
+
+//1.  
+obj.array[1]();
+    /*
+     * A. 'global.prop'
+     * B. 'obj.prop'
+     * C. 'obj.array.prop'
+     * D. undefined
+     */
+//2.
+var f = obj.array[1];
+f();
+    /*
+     * A. 'global.prop'
+     * B. 'obj.prop'
+     * C. 'obj.array.prop'
+     * D. undefined
+     */
+
+//3.
+var tmp = obj.array;
+tmp[1]();
+    /*
+     * A. 'global.prop'
+     * B. 'obj.prop'
+     * C. 'obj.array.prop'
+     * D. undefined
+     */
+
+//4.
+var tmp = obj;
+obj.array[1]();
+    /*
+     * A. 'global.prop'
+     * B. 'obj.prop'
+     * C. 'obj.array.prop'
+     * D. undefined
+     */
+
+//5.
+var f = obj.array[1];
+var fx = f.bind(obj);
+fx();
+    /*
+     * A. 'global.prop'
+     * B. 'obj.prop'
+     * C. 'obj.array.prop'
+     * D. undefined
+     */
+
+//6.
+var f = obj.array[1];
+var fx = f.bind(obj.array);
+fx();
+    /*
+     * A. 'global.prop'
+     * B. 'obj.prop'
+     * C. 'obj.array.prop'
+     * D. undefined
+     */
+
+//7.
+var f = obj.array[1];
+var fx = f.bind(f);
+fx();
+
+    /*
+     * A. 'global.prop'
+     * B. 'obj.prop'
+     * C. 'obj.array.prop'
+     * D. undefined
+     */
+
+
+
+
+
+
