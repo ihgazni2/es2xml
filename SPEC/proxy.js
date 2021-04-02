@@ -1,0 +1,14 @@
+[[GetPrototypeOf]]	getPrototypeOf
+[[SetPrototypeOf]]	setPrototypeOf
+[[IsExtensible]]	isExtensible
+[[PreventExtensions]]	preventExtensions
+[[GetOwnProperty]]	getOwnPropertyDescriptor
+[[HasProperty]]	has
+[[Get]]	get
+[[Set]]	set
+[[Delete]]	deleteProperty
+[[DefineOwnProperty]]	defineProperty
+[[Enumerate]]	enumerate
+[[OwnPropertyKeys]]	ownKeys
+[[Call]]	apply
+[[Construct]]	construct

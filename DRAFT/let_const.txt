@@ -1,0 +1,58 @@
+> xxxx
+[Function: xxxx]
+> global.x
+global.x
+
+> global.xxxx
+undefined
+> xxxx
+[Function: xxxx]
+> function yyyy() {}
+undefined
+> global.yyyy
+[Function: yyyy]
+> let mmm;
+undefined
+> global.mmm
+undefined
+> var nnn;
+undefined
+> global.nnn
+undefined
+> class pppp {}
+undefined
+> pppp
+[Function: pppp]
+> global.pppp
+undefined
+>
+
+
+
+
+let const 声明的变量 并不变成VO 的属性
+class     也不变成VO 属性 
+
+var
+function  会变成VO的属性
+
+
+> class pppp {}
+undefined
+> pppp
+[Function: pppp]
+> global.pppp
+undefined
+> global.pppp = 9999
+9999
+> pppp
+[Function: pppp]
+> global.pppp
+9999
+> global.yyyy=1111
+1111
+> yyyy
+1111
+>
+
+

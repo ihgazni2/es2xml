@@ -55,3 +55,22 @@ Person {}
 undefined
 >
 
+
+
+
+function Foo() {
+    if (!new.target) {
+        console.log("-->",new.target);
+    } else {
+        console.log("-->",new.target);
+    }
+}
+
+> Foo()
+--> undefined
+undefined
+> new Foo()
+--> [Function: Foo]
+Foo {}
+>
+    

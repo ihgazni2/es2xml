@@ -1,4 +1,4 @@
-const exdict = require("exdict")
+const exdict = require("./exdict")
 const escodegen = require("escodegen")
 const esm = require('./descmat')
 

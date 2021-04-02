@@ -1,0 +1,32 @@
+
+lexical-scope
+    处理var let const的绑定
+    block
+    function
+        function-params //函数后面参数那个小括号
+        function-body   //函数后面那个大括号
+    class
+    catch
+        catch-param    //catch后面那个小括号
+        catch-body     //catch后面那个大括号
+    global
+
+
+property-scope
+    object // 对象大括号
+    array  // 数组中括号
+    with   // 
+        with-obj  //with后面那个小括号
+        with-body //with后面那个大括号
+
+
+run-scope
+    call    //函数调用会开辟一个新的run-scope;
+            //同时记录当前所在property-scope , 这个用来动态生成this;
+            //同时记录当前run-scope-level: 指令序号
+    ret     //函数末尾会返回上一级run-scope-level:指令序号
+            //然后销毁当前run-scope
+    next    //默认执行当前run-scope下一条指令
+    goto    //跳转到当前run-scope的指令
+
+

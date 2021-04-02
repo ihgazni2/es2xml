@@ -294,5 +294,14 @@ fx();
 
 
 
+> eval('var j = 1');
+undefined
+> j
+1
+> delete j
+true
+> j
+Uncaught ReferenceError: j is not defined
+>
 
 

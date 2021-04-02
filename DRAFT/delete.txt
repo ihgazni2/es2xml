@@ -1,0 +1,100 @@
+http://perfectionkills.com/understanding-delete/
+
+Type of code
+There are 3 types of executable code in ECMAScript: Global code, Function code and Eval code. These types are somewhat self-descriptive, but here’s a short overview:
+
+When a source text is treated as a Program, it is executed in a global scope, and is considered a Global code. In a browser environment, content of SCRIPT elements is usually parsed as a Program, and is therefore evaluated as a Global code.
+Anything that’s executed directly within a function is, quite obviously, considered a Function code. In browsers, content of event attributes (e.g. <p onclick="...">) is usually parsed and treated as a Function code.
+Finally, text that’s supplied to a built-in eval function is parsed as Eval code. We will soon see why this type is special.
+
+
+
+global_code
+function_code
+eval_code
+
+
+glb       global
+func      function
+eval      eval
+cd        code
+
+glb_cd       gcd
+func_cd      fcd
+eval_cd      ecd
+
+
+
+execution_context
+   execution_context_for_global_code
+   execution_context_for_function_code
+
+
+ec 可以构建一个stack 运行
+
+
+
+ec     execution_context
+gec    global_execution_context
+fec    function_execution_context
+eec    eval_execution_context
+
+
+每个ec 有一个vo 
+
+vo    variable_object
+    ao    activation_object
+    go    global_object
+
+
+
+global     的vo 就是 go
+function   的vo 
+   function 里面的var let const 
+            function 里面的 function class 
+            都变成这个vo的属性    
+eval       的vo是 callee的VO 
+           
+
+
+#####
+
+
+ReadOnly
+DontEnum
+DontDelete
+Internal
+
+When declared variables and functions become properties of a Variable object — either Activation object (for Function code), or Global object (for Global code), these properties are created with DontDelete attribute. However, any explicit (or implicit) property assignment creates property without DontDelete attribute. And this is essentialy why we can delete some properties, but not others:
+
+
+  (function(){
+
+    /* can't delete `arguments`, since it has DontDelete */
+
+    delete arguments; // false
+    typeof arguments; // "object"
+
+    /* can't delete function's `length`; it also has DontDelete */
+
+    function f(){}
+    delete f.length; // false
+    typeof f.length; // "number"
+
+  })();
+
+
+Properties corresponding to function arguments are created with DontDelete as well, and so can not be deleted either:
+
+
+
+  function x(){ }
+  var x;
+  typeof x; // "function"
+
+
+function declarations are instantiated after variable declarations, and are allowed to overwrite them
+
+
+
+

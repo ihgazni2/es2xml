@@ -1,0 +1,100 @@
+Chapter 10
+
+SourceCharacter
+
+
+
+global_code
+eval_code
+function_code
+module_code
+
+
+
+FunctionDeclaration, 
+FunctionExpression, 
+GeneratorDeclaration, 
+GeneratorExpression, 
+MethodDefinition, 
+ArrowFunction, 
+ClassDeclaration,
+ClassExpression
+
+
+strict_code
+    use_strict
+    module_code
+    ClassExpression
+    ClassDeclaration
+
+
+
+
+
+
+
+
+input_elements
+    tokens
+    line_terminators
+    comments
+    white_space
+
+
+
+//从左至右
+The source text is scanned from left to right, 
+//尽可能最长匹配
+repeatedly taking the longest possible sequence of code points as the next input element.
+
+
+
+InputElementRegExpOrTemplateTail
+RegularExpressionLiteral
+TemplateMiddle
+TemplateTail
+InputElementRegExp
+RegularExpressionLiteral
+InputElementTemplateTail
+RegularExpressionLiteral
+InputElementDiv
+
+
+
+InputElementDiv ::
+WhiteSpace
+LineTerminator
+Comment
+CommonToken
+DivPunctuator
+RightBracePunctuator
+
+
+InputElementRegExp ::
+WhiteSpace
+LineTerminator
+Comment
+CommonToken
+RightBracePunctuator
+RegularExpressionLiteral
+
+
+InputElementRegExpOrTemplateTail ::
+WhiteSpace
+LineTerminator
+Comment
+CommonToken
+RegularExpressionLiteral
+TemplateSubstitutionTail
+InputElementTemplateTail ::
+WhiteSpace
+LineTerminator
+Comment
+CommonToken
+DivPunctuator
+TemplateSubstitutionTail
+
+
+11.3
+
+

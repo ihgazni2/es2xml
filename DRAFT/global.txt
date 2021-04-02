@@ -1,0 +1,82 @@
+> var x = 100;
+undefined
+> global.x
+100
+> x
+100
+> delete x
+false
+> global.x
+100
+> x
+100
+>
+
+
+
+> global.y = 200;
+200
+> y
+200
+> delete y
+true
+> y
+Uncaught ReferenceError: y is not defined
+> global.y
+undefined
+
+> z = 300
+300
+> global.z
+300
+> delete z
+true
+> z
+Uncaught ReferenceError: z is not defined
+> global.z
+undefined
+>
+
+
+var d = {
+    x:100,
+    z:300
+}
+
+y = 2000
+z = 3000
+
+with(d) {
+    delete z;
+    delete y;
+}
+
+console.log(d)
+console.log(z,global.z)
+console.log(y,global.y)
+
+
+
+y=2000;
+
+var tmp = {
+    k0:1000;
+    k1: {
+        k2:{
+            k3: function tst3() {
+                let x = 3000;
+                function tst4() {
+                    console.log(y);
+                }
+                tst4();
+            }
+        }
+    }
+}
+
+JS里面 定义域  和  属性域 是分开的
+定义域用来处理  var let const
+属性域用来处理  对象的属性(包括数组[],数组的方括号也是属性域)
+tst4 的 父-定义域 是 tst3 的 body { } //这就是正常规则
+tst4 的 父-属性域 是 tmp.k1.k2        //这儿有点绕的
+
