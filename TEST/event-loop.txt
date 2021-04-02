@@ -1,0 +1,47 @@
+function x(){
+    setTimeout(function(){console.log('setTimeout');},0); 
+    setImmediate(function(){console.log('setImmediate');},0);                  
+    new Promise(function(resolve){                                
+        console.log('this round Promise-1');                                           
+        resolve();
+        console.log('this round Promise-2');
+    }).then(function(){console.log('Promise then');});
+    console.log('this round cmd-2');
+    queueMicrotask(function(){console.log('queueMicrotask');})
+    process.nextTick(function(){console.log('nextTick');});
+    console.log('this round cmd-2');
+    
+}
+
+> x()
+this round Promise-1
+this round Promise-2
+this round cmd-2
+this round cmd-2
+> nextTick
+Promise then
+queueMicrotask
+setImmediate
+setTimeout
+
+>
+
+
+1. 每轮有micro 和macro 两个队列 ,先执行micro 然后 执行macro (也可以理解成先执行本轮macro,再执行下轮micro,再执行下轮的macro....)
+2. 放入本轮 macro 的 Promise 函数内(不是then内)，以及正常按照顺序的
+3. 放入下一轮macro 的  优先级setImmediate > setTimeout , 相同优先级的按照 放入次序
+4. 放入下一轮micro 的  优先级process.nextTick> Promise的then > queueMicrotask,相同优先级的按照 放入次序
+
+
+
+           本轮                                                                ||                  下轮
+   micro     |       macro                                                     ||     micro                               | macro 
+             |   setImmediate(任务放到下轮macro)                               ||                                         | console.log('setTimeout') 低优先
+             |   setTimeout(任务放到下轮macro)                                 ||                                         | console.log('setImmediate') 高
+             |   new Promise(把两个任务放到本轮macro，把then放到下轮micro)     ||     console.log('Promise then') 中      |
+             |   console.log('this round Promise-1')                           ||                                         |
+             |   console.log('this round Promise-2')                           ||                                         |
+             |   console.log('this round cmd-1')                               ||     console.log('nextTick')高           |
+             |   process.nextTick(放到下轮micro队列首)                         ||                                         |
+             |   console.log('this round cmd-2');                              ||     console.log('queueMicrotask')低     |
+             |   queueMicrotask(放到下轮micro队列尾)                           ||                                         |
