@@ -2,7 +2,7 @@
 const fs = require('fs')
 const ac = require("acorn")
 const escodegen = require("escodegen")
-const exdict = require("./exdict")
+const exdict = require("../exdict")
 const esmat = require("../descmat.js")
 
 let inputFn = process.argv[2]
