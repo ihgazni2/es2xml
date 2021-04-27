@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const e2x = require('../es2xml.js')
 const fs = require('fs')
-const ac = require("acorn")
+const ac = require("../ac")
 
 let inputFn = process.argv[2]
 let outputFn = process.argv[3]

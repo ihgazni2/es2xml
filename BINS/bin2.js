@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const srch = require('../srch.js')
 const fs = require('fs')
-const ac = require("acorn")
+const ac = require("../ac")
 
 let inputFn = process.argv[2]
 let type = process.argv[3]

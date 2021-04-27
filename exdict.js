@@ -15,7 +15,7 @@ function getOwnPropertyNames(obj) {
 
 
 const util = require("util")
-const elel = require("elist")
+const elel = require("./elist")
 
 function getItemViaPathList0(d,pl) {
     let rslt=d

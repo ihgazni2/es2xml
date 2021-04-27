@@ -1,4 +1,4 @@
-const elel = require("elist")
+const elel = require("./elist")
 const cmmn = require("./common")
 
 
@@ -103,7 +103,9 @@ const KEYS = {
     _ExportSpecifier:["exported"],
     _ExportDefaultDeclaration:["declaration"],
     _ExportNamedDeclaration:["declaration","specifiers","source"],
-    _ExportAllDeclaration:["source"]
+    _ExportAllDeclaration:["source"],
+    _PrivateIdentifier:[],
+    _PropertyDefinition:["key","value"]
 }
 
 KEYS._Programs = KEYS._Program
@@ -194,6 +196,8 @@ FUNCS = {
     _ExportDefaultDeclaration : function(tnode){return(engine(tnode,...KEYS._ExportDefaultDeclaration))},
     _ExportNamedDeclaration : function(tnode){return(engine(tnode,...KEYS._ExportNamedDeclaration))},
     _ExportAllDeclaration : function(tnode){return(engine(tnode,...KEYS._ExportAllDeclaration))},
+    _PrivateIdentifier:function(tnode){return(engine(tnode,...KEYS._PrivateIdentifier))},
+    _PropertyDefinition:function(tnode){return(engine(tnode,...KEYS._PropertyDefinition))},
     _ModuleDeclaration:function(tnode){},
     _ModuleSpecifier:function(tnode){}
 }
@@ -329,7 +333,8 @@ function getChildren(tnode) {
     // 
         let type = tnode.node.type
         let fn = cmmn.type2fn(type)
-        return(this.FUNCS[fn](tnode))
+        let f = this.FUNCS[fn];
+        return(f?f(tnode):[])
     //}
 }
 

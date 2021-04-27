@@ -1,4 +1,4 @@
-const elel = require("elist")
+const elel = require("./elist")
 
 function rfile(fileName){
     s = fs.readFileSync(fileName)

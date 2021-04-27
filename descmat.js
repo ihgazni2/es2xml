@@ -1,4 +1,4 @@
-const elel = require("elist")
+const elel = require("./elist")
 const gc = require('./children')
 const cmmn = require("./common")
 const utils = require("./utils")

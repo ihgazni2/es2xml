@@ -2,7 +2,6 @@ const esm = require('./descmat')
 const e2x = require('./es2xml')
 const srch = require('./srch')
 const exdict = require("./exdict")
-const elel = require("elist")
 
 
 function getPlNodeMap(ast,pldfs) {

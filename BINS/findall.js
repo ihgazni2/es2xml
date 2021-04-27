@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const fs = require('fs')
-const ac = require("acorn")
+const ac = require("../ac")
 const escodegen = require("escodegen")
 const exdict = require("../exdict")
 const esmat = require("../descmat.js")

@@ -1,6 +1,6 @@
 const gm = require('./descmat')
 const cmmn = require('./common')
-const elel = require('elist')
+const elel = require('./elist')
 
 function creatAttribStr(attribs) {
     if(attribs===undefined) {

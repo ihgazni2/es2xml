@@ -5,13 +5,13 @@ attrib = `FunctionDeclaration:['id','expression','generator','async','params','b
 
 */
 
-const ac = require("acorn")
+const ac = require("../ac")
 const esmat = require("../descmat.js")
 const e2x = require("es2xml")
 const exdict = require("../exdict")
 const escodegen = require('escodegen')
 const fs = require("fs")
-const elel = require("elist")
+const elel = require("../elist")
 
 
 /////////////////
